@@ -1,0 +1,10 @@
+---
+# update all and reboot server
+- name: update all
+  dnf: pkg=* state=latest
+# install ntpd
+- name: Install ntpd
+  dnf: pkg=ntp state=latest
+# start ntpd
+- name: Ensure ntpd is running
+  service: name=ntpd state=started enabled=true

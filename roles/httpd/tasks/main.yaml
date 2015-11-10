@@ -1,0 +1,20 @@
+---
+# install mariadb-server
+- name: Install httpd
+  yum: pkg={{item}} state=latest
+  with_items:
+  - httpd
+  - wget
+  - php
+
+- name: Ensure firewalld is running
+  service: name=firewalld state=started enabled=true
+
+- name: Open port 80
+  command: firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+- name: restart firewalld
+  command: firewall-cmd --reload
+
+- name: Ensure httpd is running
+  service: name=httpd state=started enabled=true

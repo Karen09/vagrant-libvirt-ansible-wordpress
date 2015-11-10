@@ -1,0 +1,35 @@
+---
+# install wordpress
+
+- name: install database wordpress
+  mysql_db: name=wordpress state=present
+
+- name: install user wordpress
+  mysql_user: name=wordpress password=wordpress priv=*.*:ALL state=present
+
+- name: install wordpress
+  yum: name=/home/vagrant/sync/roles/rpm/wordpress-1.0-1.x86_64.rpm state=present
+
+- name: Create wp-config.php
+  command: cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+
+- name: edit wp-config.php file
+  replace:
+       dest=/var/www/html/wp-config.php
+       regexp='database_name_here'
+       replace='wordpress'
+       backup=yes
+
+- name: edit wp-config.php file
+  replace:
+       dest=/var/www/html/wp-config.php
+       regexp='username_here'
+       replace='wordpress'
+       backup=yes
+
+- name: edit wp-config.php file
+  replace:
+       dest=/var/www/html/wp-config.php
+       regexp='password_here'
+       replace='wordpress'
+       backup=yes

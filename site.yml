@@ -1,0 +1,15 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: true
+  gather_facts: True
+
+  #vars:
+   #   mysql_root_password: vagrant
+      
+  roles:
+#  - common
+  - mariadb
+  - httpd
+  - wordpress
+#  - reboot
